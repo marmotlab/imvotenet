@@ -1,3 +1,16 @@
+## Contributing
+1. A python script `demo.py` that uses a pre-trained model to detect objects in a point cloud. (without downloading data | SUN RGB-D val set samples and pre-trained model provided in `demo` folder). 
+
+### Run Demo
+The pre-trained model with sample point clouds, RGB Images, Depth Maps, Camera Calib and the 2D bounding box detections are available in the demo folder. 
+After completing installation below, Run:
+```bash
+python demo.py
+```
+The demo uses a pre-trained model (on SUN RGB-D) to detect objects in a point cloud from an indoor room (from SUN RGB-D val set). You can use 3D visualization software such as the MeshLab to open the dumped file under `demo/results` to see the 3D detection output. Specifically, open `***_pc.ply` and `***_pred_confident_nms_bbox.ply` to see the input point cloud and predicted 3D bounding boxes. Incase you want to check the class labels of the detected objects, set `inference_switch = True` in the second last line of `demo.py`. You can check the `***_pred_map_cls.txt` to get the class labels.
+
+The ImVoteNet model needs the point cloud as well as the geometric, semantic and texture cues extracted from the RGB Image as input. `demo.py` creates a pipeline that inputs the RGB Image, Depth Map, Camera Calib and the 2D bounding box detections (Faster RCNN 2d object detection backbone output) to output all necessary inputs for ImVoteNet model in the right format. It further uses the pre-trained model to detect objects.
+
 # ImVoteNet
 **Boosting 3D Object Detection in Point Clouds with Image Votes**
 
@@ -29,7 +42,7 @@ pip install tensorboardX --no-deps
 ```
 Now we are ready to clone this repository:
 ```bash
-git clone git@github.com:facebookresearch/imvotenet.git
+git clone git@github.com:marmotlab/imvotenet.git
 cd imvotenet
 ```
 The code depends on [PointNet++](http://arxiv.org/abs/1706.02413) as a backbone, which needs compilation:
